@@ -7,21 +7,7 @@ import ProfilePic from './pages/ProfilePic.jsx'
 import ForgetPassword from './pages/ForgetPassword'
 import ResetPassword from'./pages/ResetPassword';
 
-export default function App() {
-  var ws = new WebSocket('wss://smart-room-chat.herokuapp.com/');         
-
-ws.onopen = function()    
-{
-
-   // Web Socket is connected, send data using send()
-   var data={
-     mid:"login",
-     uid: myId
-
-   };
-        ws.send(JSON.stringify(data));      
-
-     };  
+export default function App() { 
   return (
     <div>
       <Routers>
