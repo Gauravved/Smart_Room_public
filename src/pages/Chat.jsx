@@ -73,7 +73,7 @@ function Chat() {
   useEffect(() => {
     if (currentUser) {
       socket = io(`${host}/`);
-      socket.emit("add-user", currentUser._id);
+      socket.current.emit("add-user", currentUser._id);
 
     }
   }, [currentUser]);

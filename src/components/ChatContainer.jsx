@@ -36,7 +36,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
     }, [currentRoom]);
     useEffect(()=>{
         if(socket.current){
-            socket.on("msg-receive",(msg)=>{
+            socket.current.on("msg-receive",(msg)=>{
                 if(msg.receiverRoomId === currentRoomId){
                     setArrivalMessage({fromSelf: msg.from, message: msg.message});
                     setDisplayToast(false)
@@ -62,7 +62,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
             to: currentRoomId,
             message: message
         });
-        socket.emit("send-msg",{
+        socket.current.emit("send-msg",{
             to: roomUsersId,
             receiverRoomId: data.data.receiver,
             from: currentUser._id,
