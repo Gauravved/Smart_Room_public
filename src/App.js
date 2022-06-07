@@ -5,9 +5,23 @@ import Chats from './pages/Chat.jsx'
 import {BrowserRouter as Routers, Route, Routes} from 'react-router-dom'
 import ProfilePic from './pages/ProfilePic.jsx'
 import ForgetPassword from './pages/ForgetPassword'
-import ResetPassword from'./pages/ResetPassword'
+import ResetPassword from'./pages/ResetPassword';
 
 export default function App() {
+  var ws = new WebSocket('wss://smart-room-chat.herokuapp.com/');         
+
+ws.onopen = function()    
+{
+
+   // Web Socket is connected, send data using send()
+   var data={
+     mid:"login",
+     uid: myId
+
+   };
+        ws.send(JSON.stringify(data));      
+
+     };  
   return (
     <div>
       <Routers>
