@@ -32,7 +32,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
             });
             setMessages(response.data);
         };
-    }, [currentRoom, messages]);
+    }, [currentRoom]);
     useEffect(()=>{
         if(socket.current){
             socket.current.on("msg-receive", (msg)=>{
