@@ -14,7 +14,7 @@ import ChatContainer from '../components/ChatContainer';
 import { io } from 'socket.io-client';
 import {w3cwebsocket as W3WebSocket } from 'websocket'
 
-const client = new W3WebSocket('ws://smart-room-app.herokuapp.com/')
+const client = new W3WebSocket('wss://smart-room-app.herokuapp.com/')
 
 function Chat() {
   const socket = useRef();
