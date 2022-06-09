@@ -12,12 +12,12 @@ import { xCircle } from 'react-icons-kit/feather';
 import Welcome from '../components/Welcome';
 import ChatContainer from '../components/ChatContainer';
 import { io } from 'socket.io-client';
-import {w3cwebsocket as W3WebSocket } from 'websocket'
+// import {w3cwebsocket as W3WebSocket } from 'websocket'
 
-const client = new W3WebSocket('wss://smart-room-app.herokuapp.com/')
+// const client = new W3WebSocket('wss://smart-room-app.herokuapp.com/')
 
 function Chat() {
-  const socket = useRef();
+  let socket;
   const toastCss = {
     position: "top-right",
     theme: "dark",
@@ -75,12 +75,8 @@ function Chat() {
   }, []);
   useEffect(() => {
     if (currentUser) {
-
-      client.onopen = () => {
-        console.log("Connection Established");
-      }
-      socket.current = io(`${host}/`);
-      socket.current.emit("add-user", currentUser._id);
+      socket = io(`${host}/`)
+      socket.emit("add-user", currentUser._id);
 
     }
   }, [currentUser]);
