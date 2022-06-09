@@ -11,8 +11,8 @@ import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { io } from 'socket.io-client';
 
-export default function ChatContainer({currentUser,  currentRoom, currentRoomId, roomUsers, roomUsersId, displaySetting, onDisplay }) {
-    const socket = io(`${host}/`)
+export default function ChatContainer({currentUser,  currentRoom, currentRoomId, roomUsers, roomUsersId, displaySetting,socket, onDisplay }) {
+    //const socket = io(`${host}/`)
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [user, setUser] = useState("");
@@ -37,8 +37,8 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
         };
     }, [currentRoom]);
     useEffect(()=>{
-        if(socket){
-            socket.on("msg-receive",(msg)=>{
+        if(socket.current){
+            socket.current.on("msg-receive",(msg)=>{
                 if(msg.receiverRoomId === currentRoomId){
                     setArrivalMessage({fromSelf: msg.from, message: msg.message});
                     setDisplayToast(false)
@@ -64,7 +64,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
             to: currentRoomId,
             message: message
         });
-        socket.emit("send-msg",{
+        socket.current.emit("send-msg",{
             to: roomUsersId,
             receiverRoomId: data.data.receiver,
             from: currentUser._id,

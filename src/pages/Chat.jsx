@@ -17,7 +17,7 @@ import { io } from 'socket.io-client';
 // const client = new W3WebSocket('wss://smart-room-app.herokuapp.com/')
 
 function Chat() {
-  let socket;
+  const socket = useRef();
   const toastCss = {
     position: "top-right",
     theme: "dark",
@@ -75,8 +75,8 @@ function Chat() {
   }, []);
   useEffect(() => {
     if (currentUser) {
-      socket = io(`${host}/`)
-      socket.emit("add-user", currentUser._id);
+      socket.current = io(`${host}/`)
+      socket.current.emit("add-user", currentUser._id);
 
     }
   }, [currentUser]);
