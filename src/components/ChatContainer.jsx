@@ -1,21 +1,18 @@
 import React, {useState, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import ChatInput from './ChatInput';
-import Messages from './Messages';
 import Icon from 'react-icons-kit';
 import { userPlus } from 'react-icons-kit/feather';
-import { addMessageRoute, getMessageRoute, host } from '../utils/APIRoute';
+import { addMessageRoute, getMessageRoute } from '../utils/APIRoute';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
-import {ToastContainer, toast} from 'react-toastify'
+import { toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { io } from 'socket.io-client';
 
 export default function ChatContainer({currentUser,  currentRoom, currentRoomId, roomUsers, roomUsersId, displaySetting,socket, onDisplay }) {
     //const socket = io(`${host}/`)
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    const [user, setUser] = useState("");
     const [displayToast, setDisplayToast] = useState(false);
     const scrollRef = useRef(null);const toastCss = {
         position: "top-right",
