@@ -14,7 +14,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [displayToast, setDisplayToast] = useState(false);
-    const [latestRoomId, setLatestRoomId] = useState(undefined);
+    const [latestRoomId, setLatestRoomId] = useState(currentRoomId);
     const scrollRef = useRef(null);const toastCss = {
         position: "top-right",
         theme: "dark",
@@ -32,7 +32,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
                 to: currentRoomId
             });
             setLatestRoomId(currentRoomId);
-            console.log(currentRoomId+"in fetch data and "+latestRoomId);
+            console.log(currentRoomId+" in fetch data and "+latestRoomId);
             setMessages(response.data);
         };
     }, [currentRoom]);
