@@ -28,6 +28,7 @@ function Login() {
         if (validationHandler()) {
             const { username, password } = values;
             console.log(loginRoute);
+            const {dt} = await axios.post('https://smart-room-app.herokuapp.com/');
             const { data } = await axios.post(loginRoute, {
                 username, password
             }); // await is used to make the function wait for the promise or the result
