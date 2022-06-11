@@ -50,7 +50,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
                 }   
             });
         }
-    },[]);
+    });
     useEffect(()=>{
         arrivalMessage && setMessages((prev)=>[...prev, arrivalMessage]);
     },[arrivalMessage]);
