@@ -45,12 +45,13 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
                 console.log(latestRoomId + msg.receiverRoomId)
                 if(msg.receiverRoomId === latestRoomId){
                     setArrivalMessage({fromSelf: msg.from, message: msg.message});
-                    setUserFrom(msg.from);
-                    setRoomFrom(msg.fromRoom);
+                    setDisplayToast(false)
                 }
                 else{
+                    setUserFrom(msg.from);
+                    setRoomFrom(msg.fromRoom);
                     setArrivalMessage(null);
-                    toast.info(`${msg.from} sent new message in ${msg.fromRoom}`, toastCss);
+                    setDisplayToast(true)
                 }   
             });
         }
@@ -85,6 +86,12 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
         e.preventDefault();
         displaySetting();
     }
+    useEffect(()=>{
+        if(displayToast){
+            toast.info(`${userFrom} send new message in ${roomFrom}`,toastCss)
+            setDisplayToast(false);
+        }
+    },[displayToast])
     return (
         <>
             {
