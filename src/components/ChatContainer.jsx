@@ -88,7 +88,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
     }
     useEffect(()=>{
         if(displayToast){
-            toast.info("You may have new messages",toastCss)
+            toast.info(`${userFrom} send new message in ${roomFrom}`,toastCss)
             setDisplayToast(false);
         }
     },[displayToast])
