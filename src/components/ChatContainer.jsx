@@ -32,6 +32,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
                 to: currentRoomId
             });
             setLatestRoomId(currentRoomId);
+            console.log(currentRoomId+"in fetch data and "+latestRoomId);
             setMessages(response.data);
         };
     }, [currentRoom]);
