@@ -14,6 +14,7 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [displayToast, setDisplayToast] = useState(false);
+    const [latestRoomId, setLatestRoomId] = useState(undefined);
     const scrollRef = useRef(null);const toastCss = {
         position: "top-right",
         theme: "dark",
@@ -30,14 +31,15 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
                 from: currentUser._id,
                 to: currentRoomId
             });
+            setLatestRoomId(currentRoomId);
             setMessages(response.data);
         };
     }, [currentRoom]);
     useEffect(()=>{
         if(socket.current){
             socket.current.on("msg-receive", (msg)=>{
-                console.log(currentRoomId + msg.receiverRoomId)
-                if(msg.receiverRoomId === currentRoomId){
+                console.log(latestRoomId + msg.receiverRoomId)
+                if(msg.receiverRoomId === latestRoomId){
                     setArrivalMessage({fromSelf: msg.from, message: msg.message});
                     setDisplayToast(false)
                 }
