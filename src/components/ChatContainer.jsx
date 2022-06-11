@@ -36,8 +36,8 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
     useEffect(()=>{
         if(socket.current){
             socket.current.on("msg-receive", (msg)=>{
+                console.log(currentRoomId, msg.receiverRoomId)
                 if(msg.receiverRoomId === currentRoomId){
-                    alert("Hi")
                     setArrivalMessage({fromSelf: msg.from, message: msg.message});
                     setDisplayToast(false)
                 }
