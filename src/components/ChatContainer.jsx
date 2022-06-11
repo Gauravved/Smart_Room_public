@@ -15,7 +15,10 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [displayToast, setDisplayToast] = useState(false);
     const [latestRoomId, setLatestRoomId] = useState(undefined);
-    const scrollRef = useRef(null);const toastCss = {
+    const [userFrom, setUserFrom] = useState(null);
+    const [roomFrom, setRoomFrom] = useState(null);
+    const scrollRef = useRef(null);
+    const toastCss = {
         position: "top-right",
         theme: "dark",
         autoClose: 5000,
@@ -42,6 +45,8 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
                 console.log(latestRoomId + msg.receiverRoomId)
                 if(msg.receiverRoomId === latestRoomId){
                     setArrivalMessage({fromSelf: msg.from, message: msg.message});
+                    setUserFrom(msg.from);
+                    setRoomFrom(msg.fromRoom);
                     setDisplayToast(false)
                 }
                 else{
@@ -63,11 +68,13 @@ export default function ChatContainer({currentUser,  currentRoom, currentRoomId,
         const {data} = await axios.post(addMessageRoute,{
             from: currentUser._id,
             to: currentRoomId,
+            name: currentRoom,
             message: message
         });
         socket.current.emit("send-msg",{
             to: roomUsersId,
             receiverRoomId: data.data.receiver,
+            receiverRoomName: data.roomName,
             from: currentUser._id,
             message: message
         });
